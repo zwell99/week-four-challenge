@@ -1,6 +1,6 @@
 var timerEl = document.getElementById("timer");
 var questionEl = document.getElementById("question");
-var answerListEl = document.getElementById("answers");
+var answersListEl = document.getElementById("answers");
 
 var question1 = {
     question: "text",
@@ -9,17 +9,17 @@ var question1 = {
 };
 var question2 = {
     question: "text",
-    answers: ["A", "B", "C", "D"],
+    answers: ["E", "F", "G", "H"],
     corectAnswer: 0
 };
 var question3 = {
     question: "text",
-    answers: ["A", "B", "C", "D"],
+    answers: ["I", "J", "K", "L"],
     corectAnswer: 0
 };
 var question4 = {
     question: "text",
-    answers: ["A", "B", "C", "D"],
+    answers: ["M", "N", "O", "P"],
     corectAnswer: 0
 };
 
@@ -39,11 +39,52 @@ function countdown() {
     }, 1000);
 }
 
+var listEl = document.createElement("li");
+listEl.setAttribute("class", "quizButton");
+var startButton = document.createElement("button");
+startButton.textContent = "Start";
+startButton.addEventListener("click", function (event) {
+    var listEls = document.getElementsByClassName("quizButton"); // this gets a list
+    listEls[0].remove();
+    startQuiz();
+});
+listEl.append(startButton);
+answersListEl.append(listEl);
+
 function startQuiz() {
     console.log("Hello World");
+    displayQuestion(0);
+}
+
+function displayQuestion(current) {
+    var currentQuestion = questions[current];
+    questionEl.textContent = currentQuestion.question;
+    for (var i = 0; i < currentQuestion.answers.length; i++) {
+        var liEl = document.createElement("li");
+        liEl.setAttribute("class", "quizButton");
+        var button = document.createElement("button");
+        button.textContent = currentQuestion.answers[i];
+        button.addEventListener("click", function () {
+            var listEls = document.getElementsByClassName("quizButton");
+            console.log(listEls);
+            console.log(listEls.length);
+            console.log(listEls[0]);
+            console.log(listEls[1]);
+            console.log(listEls[2]);
+            console.log(listEls[3]);
+            // TODO: Figure out what's not working here
+            for (var i = 0; i < listEls.length; i++) {
+                console.log(i);
+                console.log(listEls[i]);
+                listEls[i].remove();
+            }
+            displayQuestion(current+1);
+        });
+        liEl.append(button);
+        answersListEl.append(liEl);
+    }
 }
 
 function endQuiz() {
     console.log("Hello World");
 }
-
